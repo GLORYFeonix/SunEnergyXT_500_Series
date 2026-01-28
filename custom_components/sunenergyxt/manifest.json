@@ -1,0 +1,32 @@
+{
+    "domain": "sunenergyxt",
+    "name": "SunEnergyXT 500 Series",
+    "codeowners": [
+        "@GLORYFeonix"
+    ],
+    "issue_tracker":"https://github.com/GLORYFeonix/SunEnergyXT_500_Series/issues",
+    "dependencies": [],
+    "version": "0.0.1",
+    "documentation": "https://github.com/GLORYFeonix/SunEnergyXT_500_Series",
+    "integration_type": "device",
+    "iot_class": "local_polling",
+    "platforms": [
+        "sensor",
+        "number",
+        "button",
+        "switch",
+        "text"
+    ],
+    "requirements": [
+        "aiohttp"
+    ],
+    "config_flow": true,
+    "zeroconf": [
+        {
+            "type": "_http._tcp.local."
+        }
+    ],
+    "loggers": [
+        "custom_components.sunenergyxt"
+    ]
+}

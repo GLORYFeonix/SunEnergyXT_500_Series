@@ -1,0 +1,221 @@
+{
+    "title": "SunEnergyXT 500 Series",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Can't find the device? Click to enter IP manually (View IP in SunEnergyXT App).",
+                "description": "Please enter the inverter IP.",
+                "data": {
+                    "IP": "Inverter IP"
+                }
+            },
+            "zeroconf_confirm": {
+                "title": "SunEnergyXT device discovered",
+                "description": "Discovered device SN: {sn}, IP: {host}. Do you want to add it?",
+                "data": {}
+            }
+        },
+        "error": {
+            "invalid_ip": "Invalid IP address.",
+            "cannot_connect": "Unable to connect to the device. Please check the network or device status.",
+            "cannot_get_sn": "Unable to get SN. Please check device status.",
+            "cannot_get_model": "Unable to get model. Please check device status.",
+            "already_configured": "This device has been added.",
+            "already_in_progress": "This device has been discovered.",
+            "unknown": "An unknown error occurred."
+        },
+        "abort": {
+            "cannot_connect": "Unable to connect to the device. Please check the network or device status.",
+            "cannot_get_sn": "Unable to get SN. Please check device status.",
+            "cannot_get_model": "Unable to get model. Please check device status.",
+            "not_device": "The discovered device is not a SunEnergyXT device.",
+            "already_configured": "This device has been added.",
+            "unknown": "An unknown error occurred."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ws": {
+                "name": "Wi-Fi SSID"
+            },
+            "wr": {
+                "name": "Wi-Fi Signal Strength"
+            },
+            "st": {
+                "name": "System Status",
+                "state": {
+                    "0": "Shutdown",
+                    "1": "Standby",
+                    "2": "Running",
+                    "3": "Upgrading"
+                }
+            },
+            "iw": {
+                "name": "System Total Input Power"
+            },
+            "op": {
+                "name": "System Total Output Power"
+            },
+            "pv": {
+                "name": "PV Total Input Power"
+            },
+            "pv1": {
+                "name": "PV 1 Input Power"
+            },
+            "pv2": {
+                "name": "PV 2 Input Power"
+            },
+            "pv3": {
+                "name": "PV 3 Input Power"
+            },
+            "pv4": {
+                "name": "PV 4 Input Power"
+            },
+            "ii1": {
+                "name": "PV 1 Input Current"
+            },
+            "ii2": {
+                "name": "PV 2 Input Current"
+            },
+            "ii3": {
+                "name": "PV 3 Input Current"
+            },
+            "ii4": {
+                "name": "PV 4 Input Current"
+            },
+            "vp1": {
+                "name": "PV 1 Input Voltage"
+            },
+            "vp2": {
+                "name": "PV 2 Input Voltage"
+            },
+            "vp3": {
+                "name": "PV 3 Input Voltage"
+            },
+            "vp4": {
+                "name": "PV 4 Input Voltage"
+            },
+            "gp": {
+                "name": "System Grid Port Power"
+            },
+            "lp": {
+                "name": "System Load Port Power"
+            },
+            "gd1": {
+                "name": "Today's Grid Charge Energy"
+            },
+            "gd2": {
+                "name": "Today's Grid Feed-in Energy"
+            },
+            "ld": {
+                "name": "Today's Off-grid Output Energy"
+            },
+            "sc": {
+                "name": "System Battery Level"
+            },
+            "sc0": {
+                "name": "Head storage"
+            },
+            "sc1": {
+                "name": "Expansion storage 1"
+            },
+            "sc2": {
+                "name": "Expansion storage 2"
+            },
+            "sc3": {
+                "name": "Expansion storage 3"
+            },
+            "sc4": {
+                "name": "Expansion storage 4"
+            },
+            "sc5": {
+                "name": "Expansion storage 5"
+            },
+            "on": {
+                "name": "System Battery Pack Online Count"
+            },
+            "es": {
+                "name": "Firmware Version (Wi-Fi)"
+            },
+            "bs0": {
+                "name": "Firmware Version (BMS 0)"
+            },
+            "bs1": {
+                "name": "Firmware Version (BMS 1)"
+            },
+            "bs2": {
+                "name": "Firmware Version (BMS 2)"
+            },
+            "bs3": {
+                "name": "Firmware Version (BMS 3)"
+            },
+            "bs4": {
+                "name": "Firmware Version (BMS 4)"
+            },
+            "bs5": {
+                "name": "Firmware Version (BMS 5)"
+            },
+            "as": {
+                "name": "Firmware Version (AC Unit)"
+            },
+            "ds": {
+                "name": "Firmware Version (DC Unit)"
+            },
+            "sn": {
+                "name": "System Host SN"
+            },
+            "ms": {
+                "name": "Meter Status",
+                "state": {
+                    "0": "Unbound",
+                    "1": "Online",
+                    "2": "Offline"
+                }
+            }
+        },
+        "number": {
+            "gs": {
+                "name": "System Grid Port Power Setpoint"
+            },
+            "is": {
+                "name": "System Max Inverter Power Setpoint"
+            },
+            "si": {
+                "name": "System Min Discharge SOC"
+            },
+            "sa": {
+                "name": "System Max Charge SOC"
+            },
+            "so": {
+                "name": "System Load Port Discharge Limit SOC"
+            },
+            "pt": {
+                "name": "System Auto-Shutdown Time Setting"
+            }
+        },
+        "button": {
+            "rt": {
+                "name": "System Restart"
+            }
+        },
+        "switch": {
+            "lm": {
+                "name": "Local mode"
+            },
+            "mm": {
+                "name": "Local Zero Feed-in mode"
+            },
+            "pm": {
+                "name": "System Parallel Mode"
+            }
+        },
+        "text": {
+            "md": {
+                "name": "Local Meter Data Format"
+            },
+            "tz": {
+                "name": "System Time Zone"
+            }
+        }
+    }
+}

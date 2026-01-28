@@ -1,0 +1,221 @@
+{
+    "title": "SunEnergyXT 500 Serie",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Gerät nicht gefunden? Klicken, um IP manuell einzugeben (IP-Adresse in der SunEnergyXT‑App anzeigen).",
+                "description": "Bitte die IP eingeben.",
+                "data": {
+                    "IP": "Wechselrichter‑IP"
+                }
+            },
+            "zeroconf_confirm": {
+                "title": "SunEnergyXT‑Gerät gefunden",
+                "description": "Gerät gefunden – SN: {sn}, IP: {host}. Möchten Sie es hinzufügen?",
+                "data": {}
+            }
+        },
+        "error": {
+            "invalid_ip": "Ungültige IP‑Adresse.",
+            "cannot_connect": "Verbindung zum Gerät nicht möglich. Bitte Netzwerk oder Gerätestatus prüfen.",
+            "cannot_get_sn": "SN des Geräts kann nicht abgerufen werden. Bitte Gerätestatus prüfen.",
+            "cannot_get_model": "Gerätemodell kann nicht abgerufen werden. Bitte Gerätestatus prüfen.",
+            "already_configured": "Dieses Gerät wurde bereits hinzugefügt.",
+            "already_in_progress": "Dieses Gerät wurde bereits gefunden.",
+            "unknown": "Ein unbekannter Fehler ist aufgetreten."
+        },
+        "abort": {
+            "cannot_connect": "Verbindung zum Gerät nicht möglich. Bitte Netzwerk oder Gerätestatus prüfen.",
+            "cannot_get_sn": "SN des Geräts kann nicht abgerufen werden. Bitte Gerätestatus prüfen.",
+            "cannot_get_model": "Gerätemodell kann nicht abgerufen werden. Bitte Gerätestatus prüfen.",
+            "not_device": "Das gefundene Gerät ist kein SunEnergyXT‑Gerät.",
+            "already_configured": "Dieses Gerät wurde bereits hinzugefügt.",
+            "unknown": "Ein unbekannter Fehler ist aufgetreten."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ws": {
+                "name": "WLAN-SSID"
+            },
+            "wr": {
+                "name": "WLAN-Signalstrke"
+            },
+            "st": {
+                "name": "Systemstatus",
+                "state": {
+                    "0": "Abgeschaltet",
+                    "1": "Standby",
+                    "2": "In Betrieb",
+                    "3": "Upgrade luft"
+                }
+            },
+            "iw": {
+                "name": "Gesamteingangsleistung des Systems"
+            },
+            "op": {
+                "name": "Gesamtausgangsleistung des Systems"
+            },
+            "pv": {
+                "name": "PV-Gesamteingangsleistung"
+            },
+            "pv1": {
+                "name": "PV 1 Eingangsleistung"
+            },
+            "pv2": {
+                "name": "PV 2 Eingangsleistung"
+            },
+            "pv3": {
+                "name": "PV 3 Eingangsleistung"
+            },
+            "pv4": {
+                "name": "PV 4 Eingangsleistung"
+            },
+            "ii1": {
+                "name": "PV 1 Eingangsstrom"
+            },
+            "ii2": {
+                "name": "PV 2 Eingangsstrom"
+            },
+            "ii3": {
+                "name": "PV 3 Eingangsstrom"
+            },
+            "ii4": {
+                "name": "PV 4 Eingangsstrom"
+            },
+            "vp1": {
+                "name": "PV 1 Eingangsspannung"
+            },
+            "vp2": {
+                "name": "PV 2 Eingangsspannung"
+            },
+            "vp3": {
+                "name": "PV 3 Eingangsspannung"
+            },
+            "vp4": {
+                "name": "PV 4 Eingangsspannung"
+            },
+            "gp": {
+                "name": "Systemleistung am Netzanschluss"
+            },
+            "lp": {
+                "name": "Systemleistung am Lastanschluss"
+            },
+            "gd1": {
+                "name": "Heutige Netzladung"
+            },
+            "gd2": {
+                "name": "Heutige Netzeinspeisung"
+            },
+            "ld": {
+                "name": "Heutige Off-Grid-Ausgabe"
+            },
+            "sc": {
+                "name": "System-Speicherlevel"
+            },
+            "sc0": {
+                "name": "Kopfspeicher"
+            },
+            "sc1": {
+                "name": "Erweiterungsspeicher 1"
+            },
+            "sc2": {
+                "name": "Erweiterungsspeicher 2"
+            },
+            "sc3": {
+                "name": "Erweiterungsspeicher 3"
+            },
+            "sc4": {
+                "name": "Erweiterungsspeicher 4"
+            },
+            "sc5": {
+                "name": "Erweiterungsspeicher 5"
+            },
+            "on": {
+                "name": "Anzahl der Online-Batteriepacks"
+            },
+            "es": {
+                "name": "Firmware-Version (Wi-Fi)"
+            },
+            "bs0": {
+                "name": "Firmware-Version (BMS 0)"
+            },
+            "bs1": {
+                "name": "Firmware-Version (BMS 1)"
+            },
+            "bs2": {
+                "name": "Firmware-Version (BMS 2)"
+            },
+            "bs3": {
+                "name": "Firmware-Version (BMS 3)"
+            },
+            "bs4": {
+                "name": "Firmware-Version (BMS 4)"
+            },
+            "bs5": {
+                "name": "Firmware-Version (BMS 5)"
+            },
+            "as": {
+                "name": "Firmware-Version (AC-Einheit)"
+            },
+            "ds": {
+                "name": "Firmware-Version (DC-Einheit)"
+            },
+            "sn": {
+                "name": "SN des Systemhosts"
+            },
+            "ms": {
+                "name": "Zhlerstatus",
+                "state": {
+                    "0": "Nicht gebunden",
+                    "1": "Online",
+                    "2": "Offline"
+                }
+            }
+        },
+        "number": {
+            "gs": {
+                "name": "Sollwert Leistung Netzanschluss"
+            },
+            "is": {
+                "name": "Sollwert max. Wechselrichterleistung"
+            },
+            "si": {
+                "name": "System Entladegrenze"
+            },
+            "sa": {
+                "name": "System Ladegrenze"
+            },
+            "so": {
+                "name": "Systemlastanschluss-Entladegrenze"
+            },
+            "pt": {
+                "name": "Einstellung der automatischen Abschaltzeit"
+            }
+        },
+        "button": {
+            "rt": {
+                "name": "Systemneustart"
+            }
+        },
+        "switch": {
+            "lm": {
+                "name": "Lokaler Modus"
+            },
+            "mm": {
+                "name": "Lokaler Nulleinspeisemodus"
+            },
+            "pm": {
+                "name": "Parallelschaltmodus des Systems"
+            }
+        },
+        "text": {
+            "md": {
+                "name": "Lokales Zhlerdatenformat"
+            },
+            "tz": {
+                "name": "Systemzeitzone"
+            }
+        }
+    }
+}

@@ -1,0 +1,221 @@
+{
+    "title": "SunEnergyXT 500 Series",
+    "config": {
+        "step": {
+            "user": {
+                "title": "发现不到设备？点击手动输入IP（IP地址在SunEnergyXT APP上查看）",
+                "description": "请输入IP。",
+                "data": {
+                    "IP": "逆变器IP"
+                }
+            },
+            "zeroconf_confirm": {
+                "title": "发现 SunEnergyXT 设备",
+                "description": "发现设备 SN: {sn} ，IP: {host}，是否添加？",
+                "data": {}
+            }
+        },
+        "error": {
+            "invalid_ip": "无效的IP地址。",
+            "cannot_connect": "无法连接设备，请检查网络或设备状态。",
+            "cannot_get_sn": "无法获取设备SN，请检查设备状态。",
+            "cannot_get_model": "无法获取设备型号，请检查设备状态。",
+            "already_configured": "该设备已被添加。",
+            "already_in_progress": "该设备已被发现。",
+            "unknown": "发生未知错误。"
+        },
+        "abort": {
+            "cannot_connect": "无法连接设备，请检查网络或设备状态。",
+            "cannot_get_sn": "无法获取设备SN，请检查设备状态。",
+            "cannot_get_model": "无法获取设备型号，请检查设备状态。",
+            "not_device": "发现的设备不是 SunEnergyXT 设备。",
+            "already_configured": "该设备已被添加。",
+            "unknown": "发生未知错误。"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ws": {
+                "name": "WiFi"
+            },
+            "wr": {
+                "name": "网络信号强度"
+            },
+            "st": {
+                "name": "系统运行状态",
+                "state": {
+                    "0": "停机",
+                    "1": "待机",
+                    "2": "运行",
+                    "3": "升级中"
+                }
+            },
+            "iw": {
+                "name": "系统总输入功率"
+            },
+            "op": {
+                "name": "系统总输出功率"
+            },
+            "pv": {
+                "name": "PV总输入功率"
+            },
+            "pv1": {
+                "name": "PV1输入功率"
+            },
+            "pv2": {
+                "name": "PV2输入功率"
+            },
+            "pv3": {
+                "name": "PV3输入功率"
+            },
+            "pv4": {
+                "name": "PV4输入功率"
+            },
+            "ii1": {
+                "name": "PV1输入电流"
+            },
+            "ii2": {
+                "name": "PV2输入电流"
+            },
+            "ii3": {
+                "name": "PV3输入电流"
+            },
+            "ii4": {
+                "name": "PV4输入电流"
+            },
+            "vp1": {
+                "name": "PV1输入电压"
+            },
+            "vp2": {
+                "name": "PV2输入电压"
+            },
+            "vp3": {
+                "name": "PV3输入电压"
+            },
+            "vp4": {
+                "name": "PV4输入电压"
+            },
+            "gp": {
+                "name": "系统并网口功率"
+            },
+            "lp": {
+                "name": "系统负载口功率"
+            },
+            "gd1": {
+                "name": "系统今日市电充电量"
+            },
+            "gd2": {
+                "name": "系统今日市电并网输出电量"
+            },
+            "ld": {
+                "name": "系统今日逆变离网输出电量"
+            },
+            "sc": {
+                "name": "系统总电量"
+            },
+            "sc0": {
+                "name": "主机电量"
+            },
+            "sc1": {
+                "name": "从机1电量"
+            },
+            "sc2": {
+                "name": "从机2电量"
+            },
+            "sc3": {
+                "name": "从机3电量"
+            },
+            "sc4": {
+                "name": "从机4电量"
+            },
+            "sc5": {
+                "name": "从机5电量"
+            },
+            "on": {
+                "name": "系统电池包在线数量"
+            },
+            "es": {
+                "name": "系统固件版本号（WiFi）"
+            },
+            "bs0": {
+                "name": "系统固件版本号（BMS0）"
+            },
+            "bs1": {
+                "name": "系统固件版本号（BMS1）"
+            },
+            "bs2": {
+                "name": "系统固件版本号（BMS2）"
+            },
+            "bs3": {
+                "name": "系统固件版本号（BMS3）"
+            },
+            "bs4": {
+                "name": "系统固件版本号（BMS4）"
+            },
+            "bs5": {
+                "name": "系统固件版本号（BMS5）"
+            },
+            "as": {
+                "name": "系统固件版本号（交流单元）"
+            },
+            "ds": {
+                "name": "系统固件版本号（直流单元）"
+            },
+            "sn": {
+                "name": "系统主机SN号"
+            },
+            "ms": {
+                "name": "本地零馈电模式电表状态",
+                "state": {
+                    "0": "未绑定",
+                    "1": "在线",
+                    "2": "离线"
+                }
+            }
+        },
+        "number": {
+            "gs": {
+                "name": "系统市电口功率设定值"
+            },
+            "is": {
+                "name": "系统最大逆变功率设定值"
+            },
+            "si": {
+                "name": "系统允许放电最低SOC"
+            },
+            "sa": {
+                "name": "系统允许充电最高SOC"
+            },
+            "so": {
+                "name": "系统负载口放电SOC下限"
+            },
+            "pt": {
+                "name": "系统自动关机时间设置"
+            }
+        },
+        "button": {
+            "rt": {
+                "name": "系统重启"
+            }
+        },
+        "switch": {
+            "lm": {
+                "name": "本地模式"
+            },
+            "mm": {
+                "name": "本地零馈电模式"
+            },
+            "pm": {
+                "name": "系统并机模式"
+            }
+        },
+        "text": {
+            "md": {
+                "name": "本地电表数据格式"
+            },
+            "tz": {
+                "name": "系统时区"
+            }
+        }
+    }
+}
