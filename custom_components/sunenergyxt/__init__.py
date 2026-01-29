@@ -10,11 +10,13 @@ import async_timeout
 from homeassistant.core import HomeAssistant
 from homeassistant.const import Platform
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.exceptions import ConfigEntryNotReady
 
 _LOGGER = logging.getLogger(__name__)
 PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.NUMBER, Platform.BUTTON, Platform.SWITCH, Platform.TEXT]
+CONFIG_SCHEMA = cv.empty_config_schema(domain=DOMAIN)
 
 async def _test_connection(ip: str) -> None:
     try:

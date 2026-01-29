@@ -23,6 +23,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "WR": {
+        "unit": "dB",
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "ST": {

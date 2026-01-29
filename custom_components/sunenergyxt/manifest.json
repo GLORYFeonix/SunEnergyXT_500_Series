@@ -10,13 +10,6 @@
     "documentation": "https://github.com/GLORYFeonix/SunEnergyXT_500_Series",
     "integration_type": "device",
     "iot_class": "local_polling",
-    "platforms": [
-        "sensor",
-        "number",
-        "button",
-        "switch",
-        "text"
-    ],
     "requirements": [
         "aiohttp"
     ],
