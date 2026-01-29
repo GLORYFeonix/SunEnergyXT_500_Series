@@ -1,22 +1,31 @@
-from .const import DOMAIN
-from .coordinator import SunlitDataUpdateCoordinator
+"""
+Switch entities for SunEnergyXT 500 Series integration.
 
-import async_timeout
+This module implements switch entities for the SunEnergyXT integration,
+allowing control of various device modes and functions.
+
+Classes:
+- SunlitSwitch: Represents a switch entity for controlling SunEnergyXT device modes
+
+Constants:
+- SWITCH_META: Metadata configuration for switch entities, including device classes
+"""
+
 import logging
+from http import HTTPStatus
 from typing import Any
 
-from homeassistant.core import HomeAssistant
+import async_timeout
+from homeassistant.components.switch import SwitchDeviceClass, SwitchEntity
 from homeassistant.config_entries import ConfigEntry
-
-from homeassistant.components.switch import (
-    SwitchEntity,
-    SwitchDeviceClass
-)
-
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
+
+from .const import DOMAIN
+from .coordinator import SunlitDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -32,11 +41,21 @@ SWITCH_META: dict[str, dict[str, Any]] = {
     },
 }
 
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
+    """
+    Set up switch entities for SunEnergyXT.
+
+    Args:
+        hass: Home Assistant instance
+        entry: Config entry containing device information
+        async_add_entities: Callback to add new entities
+
+    """
     config = hass.data[DOMAIN][entry.entry_id]
     sn = config["sn"]
     ip = config["ip"]
@@ -68,13 +87,20 @@ async def async_setup_entry(
                 sn=sn,
                 ip=ip,
                 device_info=device_info,
-                hass=hass
+                hass=hass,
             )
         )
 
-    async_add_entities(entities, True)
+    async_add_entities(entities, True)  # noqa: FBT003
+
 
 class SunlitSwitch(CoordinatorEntity[SunlitDataUpdateCoordinator], SwitchEntity):
+    """
+    Switch entity for SunEnergyXT device modes.
+
+    Represents a switch entity that controls various device modes and functions.
+    """
+
     _attr_has_entity_name = True
 
     def __init__(
@@ -87,6 +113,19 @@ class SunlitSwitch(CoordinatorEntity[SunlitDataUpdateCoordinator], SwitchEntity)
         device_info: DeviceInfo,
         hass: HomeAssistant,
     ) -> None:
+        """
+        Initialize the switch entity.
+
+        Args:
+            coordinator: Data update coordinator
+            entry_id: Config entry ID
+            key: Parameter key
+            sn: Device serial number
+            ip: Device IP address
+            device_info: Device information
+            hass: Home Assistant instance
+
+        """
         super().__init__(coordinator)
         self._key = key
         self._sn = sn
@@ -106,34 +145,63 @@ class SunlitSwitch(CoordinatorEntity[SunlitDataUpdateCoordinator], SwitchEntity)
 
     @property
     def is_on(self) -> bool:
+        """
+        Get the current state of the switch.
+
+        Returns:
+            True if the switch is on, False otherwise
+
+        """
         raw = self.coordinator.data.get(self._key)
         return bool(int(raw)) if raw is not None else False
 
-    async def async_turn_on(self, **kwargs):
-        await self._async_write_switch(True)
+    async def async_turn_on(self, **kwargs: dict[str, Any]) -> None:  # noqa: ARG002
+        """
+        Turn the switch on.
 
-    async def async_turn_off(self, **kwargs):
-        await self._async_write_switch(False)
+        Args:
+            **kwargs: Additional keyword arguments
 
-    async def _async_write_switch(self, is_on: bool) -> None:
+        """
+        await self._async_write_switch(is_on=True)
+
+    async def async_turn_off(self, **kwargs: dict[str, Any]) -> None:  # noqa: ARG002
+        """
+        Turn the switch off.
+
+        Args:
+            **kwargs: Additional keyword arguments
+
+        """
+        await self._async_write_switch(is_on=False)
+
+    async def _async_write_switch(self, is_on: bool) -> None:  # noqa: FBT001
+        """
+        Write the switch state to the device.
+
+        Args:
+            is_on: True to turn the switch on, False to turn it off
+
+        Raises:
+            RuntimeError: If there's an error writing to the device
+
+        """
         value = 1 if is_on else 0
-        payload = {
-            "state": {
-                self._key: value
-            }
-        }
+        payload = {"state": {self._key: value}}
         try:
-            async with async_timeout.timeout(5):
-                async with self._session.post(
-                    # f"http://SunEnergyXT_AIO_{self._sn}.local/write",
+            async with (
+                async_timeout.timeout(5),
+                self._session.post(
                     f"http://{self._ip}/write",
                     json=payload,
-                ) as resp:
-                    if resp.status != 200:
-                        text = await resp.text()
-                        raise RuntimeError(f"HTTP {resp.status}: {text}")
+                ) as resp,
+            ):
+                if resp.status != HTTPStatus.OK:
+                    text = await resp.text()
+                    msg = f"HTTP {resp.status}: {text}"
+                    raise RuntimeError(msg)
         except Exception as err:
-            _LOGGER.error("Error writing switch %s: %s", self._key, err)
+            _LOGGER.exception("Error writing switch %s: %s", self._key, err)
             raise
 
         if isinstance(self.coordinator.data, dict):

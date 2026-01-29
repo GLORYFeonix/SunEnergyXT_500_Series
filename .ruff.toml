@@ -13,6 +13,12 @@ ignore = [
     "D212", # multi-line-summary-first-line (incompatible with formatter)
     "COM812", # incompatible with formatter
     "ISC001", # incompatible with formatter
+    "TRY301", #
+    "TRY401", #
+    "SIM117", #
+    "PERF401", #
+    "PLR0911", #
+    "PLR0913", #
 ]
 
 [lint.flake8-pytest-style]

@@ -1,8 +1,19 @@
-import async_timeout
-import logging
-from typing import Any
-from datetime import timedelta, datetime, timezone
+"""
+Data update coordinator for SunEnergyXT 500 Series integration.
 
+This module implements the data update coordinator for the SunEnergyXT integration,
+responsible for fetching and updating data from the device at regular intervals.
+
+Classes:
+- SunlitDataUpdateCoordinator: Handles data updates from SunEnergyXT devices
+"""
+
+import logging
+from datetime import UTC, datetime, timedelta
+from http import HTTPStatus
+from typing import Any
+
+import async_timeout
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import (
@@ -11,10 +22,24 @@ from homeassistant.helpers.update_coordinator import (
 
 _LOGGER = logging.getLogger(__name__)
 
-class SunlitDataUpdateCoordinator(
-    DataUpdateCoordinator[dict[str, Any]]
-):
+
+class SunlitDataUpdateCoordinator(DataUpdateCoordinator[dict[str, Any]]):
+    """
+    Data update coordinator for SunEnergyXT devices.
+
+    Handles fetching and updating data from the device at regular intervals.
+    """
+
     def __init__(self, hass: HomeAssistant, sn: str, ip: str) -> None:
+        """
+        Initialize the data update coordinator.
+
+        Args:
+            hass: Home Assistant instance
+            sn: Device serial number
+            ip: Device IP address
+
+        """
         self._sn = sn
         self._ip = ip
         self._session = async_get_clientsession(hass)
@@ -26,25 +51,34 @@ class SunlitDataUpdateCoordinator(
         )
 
     async def _async_update_data(self) -> dict[str, Any]:
+        """
+        Fetch data from the SunEnergyXT device.
+
+        Returns:
+            Dictionary containing the reported device data
+
+        Raises:
+            RuntimeError: If there's an error fetching or processing the data
+
+        """
         try:
             async with async_timeout.timeout(10):
                 async with self._session.get(f"http://{self._ip}/read") as resp:
-                    if resp.status != 200:
-                        raise RuntimeError(f"HTTP status {resp.status}")
+                    if resp.status != HTTPStatus.OK:
+                        msg = f"HTTP status {resp.status}"
+                        raise RuntimeError(msg)
 
                     data = await resp.json()
 
-                    reported = (
-                        data.get("state", {})
-                        .get("reported", {})
-                    )
+                    reported = data.get("state", {}).get("reported", {})
 
                     if not isinstance(reported, dict):
-                        raise RuntimeError("Invalid 'reported' structure in JSON")
+                        msg = "Invalid 'reported' structure in JSON"
+                        raise TypeError(msg)
 
-                    self.last_success_time = datetime.now(timezone.utc)
+                    self.last_success_time = datetime.now(UTC)
                     _LOGGER.debug("Get raw data: %s", str(data))
                     return reported
         except Exception as err:
-            _LOGGER.error("Error updating SunEnergyXT Monitor data: %s", err)
+            _LOGGER.exception("Error updating SunEnergyXT Monitor data: %s", err)
             raise

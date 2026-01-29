@@ -1,21 +1,33 @@
-from .const import DOMAIN
-from .coordinator import SunlitDataUpdateCoordinator
+"""
+Text entities for SunEnergyXT 500 Series integration.
 
-import async_timeout
+This module implements text entities for the SunEnergyXT integration,
+allowing control of text-based device parameters such as mode and time zone.
+
+Classes:
+- SunlitText: Represents a text entity for controlling SunEnergyXT device parameters
+
+Constants:
+- TEXT_META: Metadata configuration for text entities
+"""
+
 import logging
+from http import HTTPStatus
 from typing import Any
 
-from homeassistant.core import HomeAssistant
-from homeassistant.config_entries import ConfigEntry
-
+import async_timeout
 from homeassistant.components.text import (
     TextEntity,
 )
-
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
+
+from .const import DOMAIN
+from .coordinator import SunlitDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -24,11 +36,21 @@ TEXT_META: dict[str, dict[str, Any]] = {
     "TZ": {},
 }
 
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
+    """
+    Set up text entities for SunEnergyXT.
+
+    Args:
+        hass: Home Assistant instance
+        entry: Config entry containing device information
+        async_add_entities: Callback to add new entities
+
+    """
     config = hass.data[DOMAIN][entry.entry_id]
     sn = config["sn"]
     ip = config["ip"]
@@ -59,13 +81,21 @@ async def async_setup_entry(
                 sn=sn,
                 ip=ip,
                 device_info=device_info,
-                hass=hass
+                hass=hass,
             )
         )
 
-    async_add_entities(entities, True)
+    async_add_entities(entities, True)  # noqa: FBT003
+
 
 class SunlitText(CoordinatorEntity[SunlitDataUpdateCoordinator], TextEntity):
+    """
+    Text entity for SunEnergyXT device parameters.
+
+    Represents a text entity that controls text-based device parameters
+    such as mode and time zone.
+    """
+
     _attr_has_entity_name = True
 
     def __init__(
@@ -78,13 +108,24 @@ class SunlitText(CoordinatorEntity[SunlitDataUpdateCoordinator], TextEntity):
         device_info: DeviceInfo,
         hass: HomeAssistant,
     ) -> None:
+        """
+        Initialize the text entity.
+
+        Args:
+            coordinator: Data update coordinator
+            entry_id: Config entry ID
+            key: Parameter key
+            sn: Device serial number
+            ip: Device IP address
+            device_info: Device information
+            hass: Home Assistant instance
+
+        """
         super().__init__(coordinator)
         self._key = key
         self._sn = sn
         self._ip = ip
         self._session = async_get_clientsession(hass)
-
-        meta = TEXT_META.get(key, {})
 
         self._attr_unique_id = f"{DOMAIN}_{entry_id}_{key}"
         self._attr_translation_key = key.lower()
@@ -92,30 +133,52 @@ class SunlitText(CoordinatorEntity[SunlitDataUpdateCoordinator], TextEntity):
 
     @property
     def native_value(self) -> str:
+        """
+        Get the current value of the text entity.
+
+        Returns:
+            Current text value
+
+        """
         raw = self.coordinator.data.get(self._key)
         return str(raw) if raw is not None else ""
 
     async def async_set_value(self, value: str) -> None:
+        """
+        Set the value of the text entity.
+
+        Args:
+            value: New text value to set
+
+        """
         await self._async_write_switch(value)
 
     async def _async_write_switch(self, value: str) -> None:
-        payload = {
-            "state": {
-                self._key: value
-            }
-        }
+        """
+        Write the text value to the device.
+
+        Args:
+            value: Text value to write to the device
+
+        Raises:
+            RuntimeError: If there's an error writing to the device
+
+        """
+        payload = {"state": {self._key: value}}
         try:
-            async with async_timeout.timeout(5):
-                async with self._session.post(
-                    # f"http://SunEnergyXT_AIO_{self._sn}.local/write",
+            async with (
+                async_timeout.timeout(5),
+                self._session.post(
                     f"http://{self._ip}/write",
                     json=payload,
-                ) as resp:
-                    if resp.status != 200:
-                        text = await resp.text()
-                        raise RuntimeError(f"HTTP {resp.status}: {text}")
+                ) as resp,
+            ):
+                if resp.status != HTTPStatus.OK:
+                    text = await resp.text()
+                    msg = f"HTTP {resp.status}: {text}"
+                    raise RuntimeError(msg)
         except Exception as err:
-            _LOGGER.error("Error writing switch %s: %s", self._key, err)
+            _LOGGER.exception("Error writing switch %s: %s", self._key, err)
             raise
 
         if isinstance(self.coordinator.data, dict):
