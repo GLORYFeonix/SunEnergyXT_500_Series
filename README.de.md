@@ -26,11 +26,13 @@ SunEnergyXT 500 Series ist eine benutzerdefinierte Integration für Home Assista
 ### Installation über HACS (empfohlen)
 
 1. Öffnen Sie HACS in Home Assistant
-2. Klicken Sie auf "Integrationen"
-3. Klicken Sie unten rechts auf "+ Repositories durchsuchen & herunterladen"
-4. Suchen Sie nach "SunEnergyXT 500 Series"
-5. Klicken Sie auf "Herunterladen"
-6. Starten Sie Home Assistant neu
+2. Klicken Sie auf die drei Punkte in der oberen rechten Ecke und wählen Sie "Custom repositories"
+3. Geben Sie die Repository-Adresse ein: https://github.com/GLORYFeonix/SunEnergyXT_500_Series
+4. Wählen Sie "Integration" als Kategorie
+5. Klicken Sie auf "Add"
+6. Suchen Sie nach "SunEnergyXT 500 Series"
+7. Klicken Sie auf "Herunterladen"
+8. Starten Sie Home Assistant neu
 
 ### Manuelle Installation
 
@@ -38,6 +40,27 @@ SunEnergyXT 500 Series ist eine benutzerdefinierte Integration für Home Assista
 2. Entpacken Sie es in das Verzeichnis `config/custom_components/`
 3. Stellen Sie sicher, dass die Verzeichnisstruktur `config/custom_components/sunenergyxt/` ist
 4. Starten Sie Home Assistant neu
+
+#### Beispiel der endgültigen Verzeichnisstruktur
+
+```
+custom_components
+    ├── sunenergyxt
+        ├── __init__.py
+        ├── button.py
+        ├── config_flow.py
+        ├── const.py
+        ├── coordinator.py
+        ├── manifest.json
+        ├── number.py
+        ├── sensor.py
+        ├── switch.py
+        ├── text.py
+        └── translations
+            ├── de.json
+            ├── en.json
+            └── zh-Hans.json
+```
 
 ## Konfiguration
 
