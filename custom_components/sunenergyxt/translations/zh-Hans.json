@@ -1,6 +1,6 @@
 {
-    "title": "SunEnergyXT 500 Series",
     "config": {
+        "flow_title": "{sn}",
         "step": {
             "user": {
                 "title": "发现不到设备？点击手动输入IP（IP地址在SunEnergyXT APP上查看）",

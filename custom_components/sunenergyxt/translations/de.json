@@ -1,6 +1,6 @@
 {
-    "title": "SunEnergyXT 500 Serie",
     "config": {
+        "flow_title": "{sn}",
         "step": {
             "user": {
                 "title": "Gerät nicht gefunden? Klicken, um IP manuell einzugeben (IP-Adresse in der SunEnergyXT‑App anzeigen).",

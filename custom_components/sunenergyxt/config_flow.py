@@ -205,6 +205,8 @@ class SunlitConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         _LOGGER.debug("Zeroconf discovery: %s", discovery_info)
 
+        self.context["title_placeholders"] = {"sn": sn}
+
         self._discovered_sn = sn
         self._discovered_ip = ip
         self._discovered_model = model
