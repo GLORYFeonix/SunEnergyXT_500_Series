@@ -128,10 +128,12 @@ class SunlitConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             try:
                 ip = user_input["IP"]
+                _LOGGER.debug("user input ip: %s", ip)
                 await _validate_input(ip)
                 info = await _get_device_info(ip)
                 sn = info["sn"]
                 model = info["model"]
+                _LOGGER.debug("get sn: %s, model: %s", sn, model)
 
                 await self.async_set_unique_id(sn)
                 self._abort_if_unique_id_configured(updates={"ip": ip})
@@ -201,7 +203,7 @@ class SunlitConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         await self.async_set_unique_id(sn)
         self._abort_if_unique_id_configured(updates={"ip": ip})
 
-        _LOGGER.info("Zeroconf discovery: %s", discovery_info)
+        _LOGGER.debug("Zeroconf discovery: %s", discovery_info)
 
         self._discovered_sn = sn
         self._discovered_ip = ip
@@ -230,10 +232,12 @@ class SunlitConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             model = self._discovered_model
 
             try:
+                _LOGGER.debug("zeroconf discover ip: %s", ip)
                 await _validate_input(ip)
                 info = await _get_device_info(ip)
                 sn = info["sn"]
                 model = info["model"]
+                _LOGGER.debug("get sn: %s, model: %s", sn, model)
 
                 await self.async_set_unique_id(sn)
                 self._abort_if_unique_id_configured(updates={"ip": ip})
