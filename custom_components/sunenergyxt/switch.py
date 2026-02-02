@@ -32,12 +32,15 @@ _LOGGER = logging.getLogger(__name__)
 SWITCH_META: dict[str, dict[str, Any]] = {
     "LM": {
         "device_class": SwitchDeviceClass.OUTLET,
+        "icon": "mdi:lan",
     },
     "MM": {
         "device_class": SwitchDeviceClass.OUTLET,
+        "icon": "mdi:meter-electric-outline",
     },
     "PM": {
         "device_class": SwitchDeviceClass.OUTLET,
+        "icon": "mdi:link-variant",
     },
 }
 
@@ -142,6 +145,10 @@ class SunlitSwitch(CoordinatorEntity[SunlitDataUpdateCoordinator], SwitchEntity)
         device_class = meta.get("device_class")
         if device_class:
             self._attr_device_class = device_class
+
+        icon = meta.get("icon")
+        if icon:
+            self._attr_icon = icon
 
     @property
     def is_on(self) -> bool:

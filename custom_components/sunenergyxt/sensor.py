@@ -30,48 +30,58 @@ _LOGGER = logging.getLogger(__name__)
 SENSOR_META: dict[str, dict[str, Any]] = {
     "WS": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:wifi",
     },
     "WR": {
         "unit": "dB",
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:wifi-strength-2",
     },
     "ST": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:state-machine",
     },
     "IW": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:flash",
     },
     "OP": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:flash-outline",
     },
     "PV": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:solar-power",
     },
     "PV1": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:solar-panel",
     },
     "PV2": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:solar-panel",
     },
     "PV3": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:solar-panel",
     },
     "PV4": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:solar-panel",
     },
     "II1": {
         "unit": "A",
@@ -79,6 +89,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 1,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:current-dc",
     },
     "II2": {
         "unit": "A",
@@ -86,6 +97,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 1,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:current-dc",
     },
     "II3": {
         "unit": "A",
@@ -93,6 +105,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 1,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:current-dc",
     },
     "II4": {
         "unit": "A",
@@ -100,6 +113,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 1,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:current-dc",
     },
     "VP1": {
         "unit": "V",
@@ -107,6 +121,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 1,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:sine-wave",
     },
     "VP2": {
         "unit": "V",
@@ -114,6 +129,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 1,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:sine-wave",
     },
     "VP3": {
         "unit": "V",
@@ -121,6 +137,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 1,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:sine-wave",
     },
     "VP4": {
         "unit": "V",
@@ -128,16 +145,19 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 1,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:sine-wave",
     },
     "GP": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:transmission-tower",
     },
     "LP": {
         "unit": "W",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:home-lightning-bolt",
     },
     "GD1": {
         "unit": "kwh",
@@ -145,6 +165,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 3,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.TOTAL,
+        "icon": "mdi:battery-charging",
     },
     "GD2": {
         "unit": "kwh",
@@ -152,6 +173,7 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 3,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.TOTAL,
+        "icon": "mdi:transmission-tower-export",
     },
     "LD": {
         "unit": "kwh",
@@ -159,78 +181,98 @@ SENSOR_META: dict[str, dict[str, Any]] = {
         "precision": 3,
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.TOTAL,
+        "icon": "mdi:power-plug-battery-outline",
     },
     "SC": {
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:battery",
     },
     "SC0": {
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:battery-outline",
     },
     "SC1": {
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:battery-outline",
     },
     "SC2": {
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:battery-outline",
     },
     "SC3": {
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:battery-outline",
     },
     "SC4": {
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:battery-outline",
     },
     "SC5": {
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:battery-outline",
     },
     "ON": {
         "entity_category": EntityCategory.DIAGNOSTIC,
         "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:battery-check",
     },
     "ES": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "BS0": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "BS1": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "BS2": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "BS3": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "BS4": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "BS5": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "AS": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "DS": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:chip",
     },
     "SN": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:information-variant-circle",
     },
     "MS": {
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "icon": "mdi:meter-electric",
     },
 }
 
@@ -368,9 +410,17 @@ class SunlitSensor(
         if state_class:
             self._attr_state_class = state_class
 
+        precision = meta.get("precision")
+        if precision:
+            self._attr_suggested_display_precision = precision
+
         unit = meta.get("unit")
         if unit:
             self._attr_native_unit_of_measurement = unit
+
+        icon = meta.get("icon")
+        if icon:
+            self._attr_icon = icon
 
     @property
     def native_value(self) -> Any:

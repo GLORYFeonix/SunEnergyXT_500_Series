@@ -32,8 +32,12 @@ from .coordinator import SunlitDataUpdateCoordinator
 _LOGGER = logging.getLogger(__name__)
 
 TEXT_META: dict[str, dict[str, Any]] = {
-    "MD": {},
-    "TZ": {},
+    "MD": {
+        "icon": "mdi:code-json",
+    },
+    "TZ": {
+        "icon": "mdi:map-clock-outline",
+    },
 }
 
 
@@ -127,9 +131,15 @@ class SunlitText(CoordinatorEntity[SunlitDataUpdateCoordinator], TextEntity):
         self._ip = ip
         self._session = async_get_clientsession(hass)
 
+        meta = TEXT_META.get(key, {})
+
         self._attr_unique_id = f"{DOMAIN}_{entry_id}_{key}"
         self._attr_translation_key = key.lower()
         self._attr_device_info = device_info
+
+        icon = meta.get("icon")
+        if icon:
+            self._attr_icon = icon
 
     @property
     def native_value(self) -> str:
@@ -164,7 +174,11 @@ class SunlitText(CoordinatorEntity[SunlitDataUpdateCoordinator], TextEntity):
             RuntimeError: If there's an error writing to the device
 
         """
-        payload = {"state": {self._key: value}}
+        if self._key == "MD":
+            mm_value = 0 if value.strip() == "" else 1
+            payload = {"state": {"MM": mm_value, "MD": value}}
+        else:
+            payload = {"state": {self._key: value}}
         try:
             async with (
                 async_timeout.timeout(5),
@@ -183,4 +197,6 @@ class SunlitText(CoordinatorEntity[SunlitDataUpdateCoordinator], TextEntity):
 
         if isinstance(self.coordinator.data, dict):
             self.coordinator.data[self._key] = value
+            if self._key == "MD":
+                self.coordinator.data["MM"] = 0 if value.strip() == "" else 1
         self.async_write_ha_state()

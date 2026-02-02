@@ -32,6 +32,7 @@ _LOGGER = logging.getLogger(__name__)
 BUTTON_META: dict[str, dict[str, Any]] = {
     "RT": {
         "device_class": ButtonDeviceClass.RESTART,
+        "icon": "mdi:restart",
     },
 }
 
@@ -134,6 +135,10 @@ class SunlitButton(CoordinatorEntity[SunlitDataUpdateCoordinator], ButtonEntity)
         device_class = meta.get("device_class")
         if device_class:
             self._attr_device_class = device_class
+
+        icon = meta.get("icon")
+        if icon:
+            self._attr_icon = icon
 
     async def async_press(self) -> None:
         """

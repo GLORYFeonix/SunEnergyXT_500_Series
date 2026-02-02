@@ -36,36 +36,42 @@ NUMBER_META: dict[str, dict[str, Any]] = {
         "max_value": 2400,
         "step": 10,
         "unit": "W",
+        "icon": "mdi:transmission-tower",
     },
     "IS": {
         "min_value": 1,
         "max_value": 2400,
         "step": 10,
         "unit": "W",
+        "icon": "mdi:flash",
     },
     "SI": {
         "min_value": 1,
         "max_value": 30,
         "step": 1,
         "unit": "%",
+        "icon": "mdi:battery-low",
     },
     "SA": {
         "min_value": 70,
         "max_value": 100,
         "step": 1,
         "unit": "%",
+        "icon": "mdi:battery-high",
     },
     "SO": {
         "min_value": 1,
         "max_value": 30,
         "step": 1,
         "unit": "%",
+        "icon": "mdi:battery-arrow-down-outline",
     },
     "PT": {
         "min_value": 30,
         "max_value": 1440,
         "step": 1,
         "unit": "min",
+        "icon": "mdi:timer-outline",
     },
 }
 
@@ -192,6 +198,10 @@ class SunlitNumber(CoordinatorEntity[SunlitDataUpdateCoordinator], NumberEntity)
         unit = meta.get("unit")
         if unit:
             self._attr_native_unit_of_measurement = unit
+
+        icon = meta.get("icon")
+        if icon:
+            self._attr_icon = icon
 
     @property
     def native_value(self) -> float:
